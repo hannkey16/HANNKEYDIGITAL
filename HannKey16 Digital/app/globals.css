@@ -41,6 +41,17 @@
   --animate-float-slow: float 11s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
+  --animate-accordion-down: accordion-down 0.28s ease-out;
+  --animate-accordion-up: accordion-up 0.22s ease-in;
+
+  @keyframes accordion-down {
+    from { height: 0; opacity: 0; }
+    to { height: var(--accordion-panel-height); opacity: 1; }
+  }
+  @keyframes accordion-up {
+    from { height: var(--accordion-panel-height); opacity: 1; }
+    to { height: 0; opacity: 0; }
+  }
 
   @keyframes marquee {
     from {
