@@ -1,0 +1,389 @@
+Create a complete Premium Digital Marketplace module for "HannKey Digital".
+
+=====================================
+80+ PREMIUM PRODUCTS
+=====================================
+
+Create a responsive product catalog with 80+ premium digital products.
+
+Each product contains:
+
+- Product ID
+- Product Name
+- Category
+- Product Image
+- Product Description
+- Starting Price
+- Multiple Plans
+- Warranty Information
+- Delivery Time
+- Product Status (Available / Out of Stock)
+- Best Seller Badge
+- New Badge
+- Instant Badge
+
+Display products in a responsive grid.
+
+Each card contains:
+
+- Product Image
+- Product Name
+- Starting Price
+- Official Account Badge
+- Instant Activation Badge
+- Warranty Badge
+- Buy Now Button
+
+Hover Animation
+
+Products include:
+
+AI Tools
+- ChatGPT Plus
+- Claude Pro
+- Gemini Advanced
+- Perplexity Pro
+- Microsoft Copilot Pro
+- Cursor Pro
+- GitHub Copilot
+- Notion AI
+- Grammarly Premium
+- Midjourney
+- Leonardo AI
+- Runway ML
+- ElevenLabs
+
+Design
+- Canva Pro
+- Canva Teams
+- Adobe Creative Cloud
+- Photoshop
+- Illustrator
+- Premiere Pro
+- Lightroom
+- After Effects
+- Figma Professional
+- CapCut Pro
+- InVideo AI
+- Envato Elements
+- Freepik Premium
+- Shutterstock
+- Motion Array
+- Placeit
+
+Streaming
+- Netflix Premium
+- Disney+
+- Prime Video
+- HBO Max
+- Apple TV+
+- Crunchyroll
+- Viu Premium
+- Vidio Platinum
+- WeTV VIP
+- iQIYI VIP
+- MUBI
+- Hulu
+
+Music
+- Spotify Premium
+- YouTube Premium
+- Apple Music
+- YouTube Music
+- Deezer
+- Tidal
+- Joox VIP
+- SoundCloud Go+
+
+Learning
+- Coursera Plus
+- Udemy Business
+- Skillshare
+- MasterClass
+- Brilliant
+- Codecademy Pro
+- Duolingo Super
+- LinkedIn Learning
+- Babbel
+
+Cloud
+- Google One
+- Microsoft 365
+- Dropbox Plus
+- iCloud+
+- MEGA Pro
+- pCloud
+- Sync.com
+
+VPN & Security
+- NordVPN
+- ExpressVPN
+- Surfshark
+- Proton VPN
+- Bitdefender
+- Kaspersky
+- Malwarebytes
+
+Developer
+- Replit Core
+- Vercel Pro
+- DigitalOcean
+- Cloudflare Pro
+
+Communication
+- Zoom Pro
+- Zoom Business
+- Discord Nitro
+- Slack Pro
+- Telegram Premium
+
+Gaming
+- Xbox Game Pass Ultimate
+- PlayStation Plus Deluxe
+- Nintendo Switch Online
+- EA Play Pro
+- Ubisoft+
+- Steam Wallet
+- Riot Gift Card
+
+Business
+- Shopify
+- Wix Premium
+- Squarespace
+
+=====================================
+PRODUCT DETAIL
+=====================================
+
+When a user clicks a product, open the Product Detail page.
+
+Display:
+
+- Product Banner
+- Product Image
+- Product Name
+- Category
+- Product Description
+- Available Plans
+- Price for each Plan
+- Warranty
+- Delivery Time
+- Activation Information
+- Terms & Conditions
+- Frequently Asked Questions
+- Customer Reviews
+- Related Products
+
+Buttons
+
+Buy Now
+
+Add to Wishlist
+
+=====================================
+CHECKOUT FLOW
+=====================================
+
+STEP 1
+
+Customer Information
+
+Fields
+
+- Full Name
+- Email Address
+- WhatsApp Number
+- Promo Code (optional)
+- Notes (optional)
+
+Validation required.
+
+Continue button.
+
+=====================================
+
+STEP 2
+
+Order Summary
+
+Display
+
+- Product Name
+- Selected Plan
+- Quantity
+- Price
+- Discount
+- Total Payment
+
+Sticky summary card.
+
+Button
+
+Continue to Payment
+
+=====================================
+
+STEP 3
+
+PAYMENT GATEWAY
+
+Use **Pakasir** as the payment gateway.
+
+Retrieve payment methods dynamically from the Pakasir API.
+
+Display all active payment methods returned by Pakasir.
+
+Examples may include:
+
+QRIS
+
+E-Wallet
+- DANA
+- OVO
+- GoPay
+- ShopeePay
+
+Virtual Account
+- BCA VA
+- BRI VA
+- BNI VA
+- Mandiri VA
+- Permata VA
+
+Convenience Store
+- Alfamart
+- Indomaret
+
+Other methods supported by Pakasir.
+
+For every payment method display:
+
+- Logo
+- Payment Fee
+- Estimated Processing Time
+
+After the customer selects a payment method:
+
+Create the transaction through the Pakasir API.
+
+Receive and display:
+
+- Payment URL (if applicable)
+- QR Code (for QRIS)
+- Virtual Account Number
+- Payment Expiration Time
+- Transaction ID
+- Payment Status
+
+Show a countdown timer until payment expires.
+
+Automatically poll or receive webhook updates from Pakasir to update the payment status.
+
+=====================================
+
+STEP 4
+
+PAYMENT STATUS
+
+Possible statuses:
+
+Waiting for Payment
+
+Paid
+
+Expired
+
+Cancelled
+
+Failed
+
+When Paid:
+
+Automatically continue to the next step.
+
+=====================================
+
+STEP 5
+
+ORDER PROCESSING
+
+Timeline
+
+Order Received
+
+↓
+
+Payment Confirmed
+
+↓
+
+Processing
+
+↓
+
+Account Ready
+
+↓
+
+Completed
+
+Display estimated processing time.
+
+=====================================
+
+STEP 6
+
+ACCOUNT DELIVERY
+
+When the order is completed display:
+
+- Product Name
+- Purchased Plan
+- Account Email / Username
+- Password (masked with show/hide option)
+- Activation Guide
+- Warranty Information
+- Purchase Date
+- Expiration Date (if applicable)
+
+Buttons:
+
+- Copy Email
+- Copy Password
+- Copy All Details
+- Download Invoice (PDF)
+- View Order History
+
+=====================================
+
+USER FEATURES
+
+- Order History
+- Search Orders
+- Invoice Download
+- Favorite Products
+- Wishlist
+- Recently Viewed
+- Promo Code Support
+- Live Order Status
+- Email Notification
+- WhatsApp Notification (optional)
+- Responsive Mobile & Desktop
+
+=====================================
+
+TECHNICAL REQUIREMENTS
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- shadcn/ui
+- Dynamic product data from JSON or database
+- Payment integration through Pakasir API
+- Secure API routes for transaction creation
+- Webhook endpoint for payment status updates
+- Loading states
+- Error handling
+- Production-ready code
