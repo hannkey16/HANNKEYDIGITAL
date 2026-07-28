@@ -1,0 +1,412 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: HannKey Digital API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: orders
+    description: Order management
+  - name: payment
+    description: Payment operations
+  - name: promo
+    description: Promo code operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+        "400":
+          description: Bad request
+    get:
+      operationId: listOrdersByEmail
+      tags: [orders]
+      summary: List orders by customer email
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Orders list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderListResponse"
+
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Get a single order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateOrder
+      tags: [orders]
+      summary: Update order fields
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+
+  /payment/create:
+    post:
+      operationId: createPayment
+      tags: [payment]
+      summary: Create a payment transaction for an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentCreateInput"
+      responses:
+        "200":
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentCreateResponse"
+        "400":
+          description: Bad request
+        "404":
+          description: Order not found
+
+  /payment/status/{orderId}:
+    get:
+      operationId: getPaymentStatus
+      tags: [payment]
+      summary: Get payment status for an order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Payment status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentStatusResponse"
+        "404":
+          description: Not found
+
+  /payment/webhook:
+    post:
+      operationId: handlePaymentWebhook
+      tags: [payment]
+      summary: Pakasir payment webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookInput"
+      responses:
+        "200":
+          description: Webhook processed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookResponse"
+
+  /promo:
+    post:
+      operationId: validatePromo
+      tags: [promo]
+      summary: Validate a promo code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromoInput"
+      responses:
+        "200":
+          description: Promo validation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromoResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        customer_name:
+          type: string
+        customer_email:
+          type: string
+        customer_whatsapp:
+          type: string
+        product_slug:
+          type: string
+        product_name:
+          type: string
+        plan_name:
+          type: string
+        plan_duration:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount:
+          type: number
+        promo_code:
+          type: ["string", "null"]
+        payment_fee:
+          type: number
+        total_payment:
+          type: number
+        payment_method:
+          type: ["string", "null"]
+        payment_method_label:
+          type: ["string", "null"]
+        payment_number:
+          type: ["string", "null"]
+        payment_expired_at:
+          type: ["string", "null"]
+        status:
+          type: string
+        notes:
+          type: ["string", "null"]
+        account_email:
+          type: ["string", "null"]
+        account_password:
+          type: ["string", "null"]
+        activation_guide:
+          type: ["string", "null"]
+        warranty_days:
+          type: integer
+        expiry_date:
+          type: ["string", "null"]
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - customer_name
+        - customer_email
+        - customer_whatsapp
+        - product_slug
+        - product_name
+        - status
+        - total_payment
+        - created_at
+        - updated_at
+
+    OrderInput:
+      type: object
+      properties:
+        id:
+          type: string
+        customer_name:
+          type: string
+        customer_email:
+          type: string
+        customer_whatsapp:
+          type: string
+        product_slug:
+          type: string
+        product_name:
+          type: string
+        plan_name:
+          type: string
+        plan_duration:
+          type: string
+        unit_price:
+          type: number
+        discount:
+          type: number
+        promo_code:
+          type: ["string", "null"]
+        total_payment:
+          type: number
+        notes:
+          type: ["string", "null"]
+      required:
+        - id
+        - customer_name
+        - customer_email
+        - customer_whatsapp
+        - product_slug
+        - product_name
+        - total_payment
+
+    OrderUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        account_email:
+          type: ["string", "null"]
+        account_password:
+          type: ["string", "null"]
+        activation_guide:
+          type: ["string", "null"]
+        expiry_date:
+          type: ["string", "null"]
+
+    OrderResponse:
+      type: object
+      properties:
+        order:
+          $ref: "#/components/schemas/Order"
+      required: [order]
+
+    OrderListResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+      required: [orders]
+
+    PaymentCreateInput:
+      type: object
+      properties:
+        orderId:
+          type: string
+        method:
+          type: string
+      required: [orderId, method]
+
+    PaymentCreateResponse:
+      type: object
+      properties:
+        paymentNumber:
+          type: string
+        expiredAt:
+          type: string
+        paymentMethod:
+          type: string
+        totalPayment:
+          type: number
+        fee:
+          type: number
+      required: [paymentNumber, expiredAt, paymentMethod, totalPayment, fee]
+
+    PaymentStatusResponse:
+      type: object
+      properties:
+        order:
+          $ref: "#/components/schemas/Order"
+      required: [order]
+
+    WebhookInput:
+      type: object
+      properties:
+        order_id:
+          type: string
+        status:
+          type: string
+      required: [order_id, status]
+
+    WebhookResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        orderId:
+          type: ["string", "null"]
+        status:
+          type: ["string", "null"]
+      required: [ok]
+
+    PromoInput:
+      type: object
+      properties:
+        code:
+          type: string
+        amount:
+          type: number
+      required: [code, amount]
+
+    PromoResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        discount:
+          type: number
+        code:
+          type: ["string", "null"]
+      required: [valid, discount]
